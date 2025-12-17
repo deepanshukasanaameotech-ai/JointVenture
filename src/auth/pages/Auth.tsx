@@ -1,4 +1,4 @@
-import { login, register, loginWithPhone, verifyPhone } from "../services/auth.service";
+import { login, register, loginWithPhone, verifyPhone, loginWithGoogle } from "../services/auth.service";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -96,6 +96,15 @@ export default function Auth() {
                         Phone
                     </button>
                 </div>
+
+                {/* Google Sign In */}
+                <button 
+                    onClick={() => loginWithGoogle()}
+                    className="w-full bg-white border border-[#DDD] text-[#2C2C2C] text-base font-medium py-3 rounded-2xl mb-6 hover:bg-[#F9F9F9] transition-all flex items-center justify-center gap-3 shadow-sm"
+                >
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-5 h-5" />
+                    Continue with Google
+                </button>
 
                 <div className="space-y-5">
                     

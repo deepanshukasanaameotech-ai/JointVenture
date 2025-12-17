@@ -49,3 +49,15 @@ export const verifyPhone = async (phone: string, token: string) => {
     if (error) throw error;
     return data;
 }
+
+export const loginWithGoogle = async () => {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+            redirectTo: window.location.origin
+        }
+    });
+
+    if (error) throw error;
+    return data;
+}
