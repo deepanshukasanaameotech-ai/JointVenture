@@ -261,7 +261,6 @@ function TabButton({label, active, onClick}: {label: string, active: boolean, on
 }
 
 function EmptyState({activeTab}: {activeTab: string}) {
-    const navigate = useNavigate();
     return (
         <div className="col-span-full py-20 text-center opacity-60">
             <div className="text-4xl mb-4 grayscale">
