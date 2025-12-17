@@ -11,6 +11,7 @@ export default function Auth() {
     const [password, setPassword] = useState('');
     
     // Phone State
+    const [countryCode, setCountryCode] = useState('+91');
     const [phone, setPhone] = useState('');
     const [otp, setOtp] = useState('');
     const [showOtpInput, setShowOtpInput] = useState(false);
@@ -35,13 +36,15 @@ export default function Auth() {
                 }
             } else {
                 // Phone Flow
+                const fullPhone = `${countryCode}${phone}`;
+                
                 if (!showOtpInput) {
                     // Step 1: Send OTP
-                    await loginWithPhone(phone);
+                    await loginWithPhone(fullPhone);
                     setShowOtpInput(true);
                 } else {
                     // Step 2: Verify OTP
-                    await verifyPhone(phone, otp);
+                    await verifyPhone(fullPhone, otp);
                     navigate("/profile-setup");
                 }
             }
@@ -73,7 +76,7 @@ export default function Auth() {
                 </h1>
                 <p className="text-[#888] mb-8 text-sm font-light text-center">
                     {authMethod === 'phone' 
-                        ? (showOtpInput ? `We sent a code to ${phone}` : "Enter your phone number to continue.") 
+                        ? (showOtpInput ? `We sent a code to ${countryCode} ${phone}` : "Enter your phone number to continue.") 
                         : (isSignUp ? "Start your journey with us today." : "Log in to continue your adventure.")
                     }
                 </p>
@@ -120,13 +123,24 @@ export default function Auth() {
                     ) : (
                         <>
                              {!showOtpInput ? (
-                                <div>
+                                <div className="flex gap-3">
+                                    <select
+                                        value={countryCode}
+                                        onChange={(e) => setCountryCode(e.target.value)}
+                                        className="w-24 bg-[#F9F8F6] border-none text-[#2C2C2C] text-base px-3 py-4 rounded-2xl focus:ring-2 focus:ring-[#D4C5B0] focus:bg-white transition-all outline-none appearance-none text-center"
+                                    >
+                                        <option value="+91">🇮🇳 +91</option>
+                                        <option value="+1">🇺🇸 +1</option>
+                                        <option value="+44">🇬🇧 +44</option>
+                                        <option value="+61">🇦🇺 +61</option>
+                                        <option value="+81">🇯🇵 +81</option>
+                                    </select>
                                     <input 
                                         type="tel" 
-                                        placeholder="+91 9999999999" 
+                                        placeholder="9999999999" 
                                         value={phone} 
                                         onChange={(e) => setPhone(e.target.value)} 
-                                        className="w-full bg-[#F9F8F6] border-none text-[#2C2C2C] placeholder:text-[#AAA] text-base px-6 py-4 rounded-2xl focus:ring-2 focus:ring-[#D4C5B0] focus:bg-white transition-all outline-none"
+                                        className="flex-1 bg-[#F9F8F6] border-none text-[#2C2C2C] placeholder:text-[#AAA] text-base px-6 py-4 rounded-2xl focus:ring-2 focus:ring-[#D4C5B0] focus:bg-white transition-all outline-none"
                                     />
                                 </div>
                              ) : (
