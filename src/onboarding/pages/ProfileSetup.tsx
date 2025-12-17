@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "../../shared/utils/supabase";
 import { useNavigate } from "react-router-dom";
 
@@ -14,6 +14,34 @@ export default function ProfileSetup() {
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                // Prefill from metadata (Google Auth) if not manually set yet
+                if (user.user_metadata?.full_name) {
+                    setFullName(user.user_metadata.full_name);
+                } else if (user.user_metadata?.name) {
+                    setFullName(user.user_metadata.name);
+                }
+                
+                // Also check if they have a partial profile in DB
+                const { data: profile } = await supabase
+                    .from('profiles')
+                    .select('full_name, bio, personality_tags')
+                    .eq('id', user.id)
+                    .single();
+                
+                if (profile) {
+                    if (profile.full_name) setFullName(profile.full_name);
+                    if (profile.bio) setBio(profile.bio);
+                    if (profile.personality_tags) setSelectedTags(profile.personality_tags);
+                }
+            }
+        };
+        fetchUser();
+    }, []);
 
     const toggleTag = (tag: string) => {
         if (selectedTags.includes(tag)) {

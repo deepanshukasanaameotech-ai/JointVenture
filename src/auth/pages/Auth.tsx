@@ -1,5 +1,6 @@
+import { supabase } from "../../shared/utils/supabase";
 import { login, register, loginWithPhone, verifyPhone, loginWithGoogle } from "../services/auth.service";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 
@@ -21,6 +22,28 @@ export default function Auth() {
     const [isSignUp, setIsSignUp] = useState(true);
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+            if (event === 'SIGNED_IN' && session) {
+                // Check if user has a complete profile
+                const { data: profile } = await supabase
+                    .from('profiles')
+                    .select('full_name, bio')
+                    .eq('id', session.user.id)
+                    .single();
+
+                // Smart Redirect: If name or bio is missing, go to setup
+                if (!profile?.full_name || !profile?.bio) {
+                    navigate("/profile-setup");
+                } else {
+                    navigate("/dashboard");
+                }
+            }
+        });
+
+        return () => subscription.unsubscribe();
+    }, [navigate]);
 
     const handleSubmit = async () => {
         setLoading(true);
