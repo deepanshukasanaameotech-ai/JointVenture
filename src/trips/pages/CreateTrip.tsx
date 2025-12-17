@@ -48,6 +48,10 @@ export default function CreateTrip() {
             const { data: { user } } = await supabase.auth.getUser();
             if (!user) throw new Error("Not authenticated");
 
+            if (!startLocation || !endLocation || !startTime || !endTime) {
+                throw new Error("Please fill in all required fields (Locations and Dates).");
+            }
+
             // 1. Insert Trip
             const { data: tripData, error: tripError } = await supabase
                 .from('trips')
@@ -55,8 +59,8 @@ export default function CreateTrip() {
                     creator_id: user.id,
                     start_location: startLocation,
                     end_location: endLocation,
-                    start_time: startTime, // ISO string from datetime-local input
-                    end_time: endTime,
+                    start_time: new Date(startTime).toISOString(),
+                    end_time: new Date(endTime).toISOString(),
                     vehicle,
                     flexibility,
                     travel_style: travelStyle,
