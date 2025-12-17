@@ -9,6 +9,7 @@ const PERSONALITY_TAGS = [
 
 export default function ProfileSetup() {
     const navigate = useNavigate();
+    const [fullName, setFullName] = useState("");
     const [bio, setBio] = useState("");
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [loading, setLoading] = useState(false);
@@ -28,15 +29,26 @@ export default function ProfileSetup() {
         setLoading(true);
         setError(null);
         try {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (!user) throw new Error("No user found");
+            let { data: { user } } = await supabase.auth.getUser();
+            
+            if (!user) {
+                // Try to refresh session
+                const { data: { session } } = await supabase.auth.getSession();
+                if (session?.user) {
+                    user = session.user;
+                } else {
+                    throw new Error("You are not signed in. Please verify your email if you just signed up.");
+                }
+            }
+
+            if (!fullName.trim()) throw new Error("Please enter your name.");
 
             const { error: updateError } = await supabase
                 .from('profiles')
                 .update({
+                    full_name: fullName,
                     bio,
                     personality_tags: selectedTags,
-                    // We can add full_name here too if we collected it earlier
                 })
                 .eq('id', user.id);
 
@@ -61,6 +73,17 @@ export default function ProfileSetup() {
                 <p className="text-[#888] mb-8 text-sm font-light">Build your profile to find the perfect travel buddies.</p>
 
                 <div className="space-y-6">
+                    <div>
+                        <label className="block text-sm font-medium text-[#555] mb-2 ml-1">Full Name</label>
+                        <input 
+                            type="text"
+                            value={fullName}
+                            onChange={(e) => setFullName(e.target.value)}
+                            placeholder="John Doe"
+                            className="w-full bg-[#F9F8F6] border-none text-[#2C2C2C] placeholder:text-[#AAA] text-base px-6 py-4 rounded-2xl focus:ring-2 focus:ring-[#D4C5B0] focus:bg-white transition-all outline-none"
+                        />
+                    </div>
+
                     <div>
                         <label className="block text-sm font-medium text-[#555] mb-2 ml-1">About Me</label>
                         <textarea 
