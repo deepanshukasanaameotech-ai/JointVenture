@@ -106,6 +106,26 @@ export default function Dashboard() {
         navigate("/login");
     };
 
+    const handleDeleteTrip = async (tripId: string) => {
+        if (!window.confirm("Are you sure you want to delete this trip? This action cannot be undone.")) {
+            return;
+        }
+
+        try {
+            const { error } = await supabase
+                .from('trips')
+                .delete()
+                .eq('id', tripId);
+
+            if (error) throw error;
+            
+            setHostedTrips(prev => prev.filter(t => t.id !== tripId));
+        } catch (error) {
+            console.error("Error deleting trip:", error);
+            alert("Failed to delete trip. Please try again.");
+        }
+    };
+
     const displayTrips = activeTab === 'hosting' ? hostedTrips : joinedTrips;
     
     // Determine "Next Trip" (Hero)
@@ -205,7 +225,12 @@ export default function Dashboard() {
                              <EmptyState activeTab={activeTab} />
                         ) : (
                             displayTrips.map(trip => (
-                                <TripCard key={trip.id} trip={trip} />
+                                <TripCard 
+                                    key={trip.id} 
+                                    trip={trip} 
+                                    isHost={activeTab === 'hosting'}
+                                    onDelete={() => handleDeleteTrip(trip.id)}
+                                />
                             ))
                         )}
                     </div>

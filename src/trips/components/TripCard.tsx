@@ -5,11 +5,19 @@ export interface TripWithCreator extends Trip {
     creator: Profile;
 }
 
-export function TripCard({ trip }: { trip: TripWithCreator }) {
+function Badge({ text }: { text: string }) {
+    return (
+        <span className="px-3 py-1 bg-[#F9F8F6] rounded-lg text-xs text-[#666]">
+            {text}
+        </span>
+    )
+}
+
+export function TripCard({ trip, isHost, onDelete }: { trip: TripWithCreator, isHost?: boolean, onDelete?: () => void }) {
     const navigate = useNavigate();
 
     return (
-        <div className="group bg-white/70 backdrop-blur-sm border border-white/60 p-6 rounded-[2rem] hover:shadow-[0_15px_30px_-10px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1">
+        <div className="group bg-white/70 backdrop-blur-sm border border-white/60 p-6 rounded-[2rem] hover:shadow-[0_15px_30px_-10px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1 relative">
             <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-full bg-[#E6E2D6] overflow-hidden flex items-center justify-center text-sm font-medium text-[#555]">
                     {trip.creator.avatar_url ? (
@@ -45,20 +53,26 @@ export function TripCard({ trip }: { trip: TripWithCreator }) {
                 <Badge text={`${trip.max_people} People Max`} />
             </div>
 
-            <button 
-                onClick={() => navigate(`/trips/${trip.id}`)}
-                className="w-full py-3 rounded-xl border border-[#2C2C2C] text-[#2C2C2C] font-medium hover:bg-[#2C2C2C] hover:text-[#F2EFE9] transition-colors"
-            >
-                View Details
-            </button>
+            <div className="flex gap-3">
+                <button 
+                    onClick={() => navigate(`/trips/${trip.id}`)}
+                    className="flex-1 py-3 rounded-xl border border-[#2C2C2C] text-[#2C2C2C] font-medium hover:bg-[#2C2C2C] hover:text-[#F2EFE9] transition-colors"
+                >
+                    View Details
+                </button>
+                {isHost && onDelete && (
+                    <button 
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            onDelete();
+                        }}
+                        className="w-12 flex items-center justify-center rounded-xl bg-red-50 text-red-500 hover:bg-red-100 transition-colors"
+                        title="Delete Trip"
+                    >
+                        🗑️
+                    </button>
+                )}
+            </div>
         </div>
-    )
-}
-
-function Badge({ text }: { text: string }) {
-    return (
-        <span className="px-3 py-1 bg-[#F9F8F6] rounded-lg text-xs text-[#666]">
-            {text}
-        </span>
     )
 }
