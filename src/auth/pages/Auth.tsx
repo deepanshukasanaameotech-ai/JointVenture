@@ -2,6 +2,7 @@ import { login, register } from "../services/auth.service";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+
 export default function Auth() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -40,10 +41,17 @@ export default function Auth() {
             {/* Main Card */}
             <div className="w-full max-w-md bg-white/70 backdrop-blur-xl border border-white/50 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] rounded-[2.5rem] p-8 md:p-12 transition-all duration-500 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)]">
                 
-                <h1 className="text-4xl font-light text-[#2C2C2C] mb-2 tracking-tight">
+                {/* Branding Logo */}
+                <div className="flex justify-center mb-6">
+                    <span className="text-4xl font-medium tracking-[0.2em] text-[#2C2C2C]">
+                        Joint Venture
+                    </span>
+                </div>
+
+                <h1 className="text-2xl font-light text-[#2C2C2C] mb-2 tracking-tight text-center">
                     {isSignUp ? "Join Us" : "Welcome"}
                 </h1>
-                <p className="text-[#888] mb-10 text-sm font-light">
+                <p className="text-[#888] mb-10 text-sm font-light text-center">
                     {isSignUp ? "Start your journey with us today." : "Log in to continue your adventure."}
                 </p>
 

@@ -118,11 +118,19 @@ export default function Dashboard() {
             <div className="fixed top-[-100px] left-[-100px] w-[500px] h-[500px] bg-[#E6E2D6] rounded-full blur-[100px] -z-10 opacity-60"></div>
             <div className="fixed bottom-0 right-0 w-[600px] h-[600px] bg-[#D4C5B0] rounded-full blur-[120px] -z-10 opacity-40"></div>
 
+
             {/* Header */}
             <div className="flex justify-between items-center mb-16">
-                <h1 className="text-4xl md:text-5xl font-light text-[#2C2C2C] tracking-tight">
-                    Where to next?
-                </h1>
+                <div>
+                    <div className="mb-2">
+                         <span className="text-2xl font-medium tracking-[0.2em] text-[#555]">
+                            Joint Venture
+                        </span>
+                    </div>
+                    <h1 className="text-4xl md:text-5xl font-light text-[#2C2C2C] tracking-tight">
+                        Where to next?
+                    </h1>
+                </div>
                 <div className="flex items-center gap-6">
                     <button 
                         onClick={() => navigate('/profile')}
