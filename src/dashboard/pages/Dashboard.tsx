@@ -189,7 +189,10 @@ export default function Dashboard() {
                      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {requests.map(req => (
                             <div key={`${req.trip_id}-${req.user_id}`} className="bg-white/80 backdrop-blur-sm p-4 rounded-2xl border border-white shadow-sm flex items-center gap-4">
-                                <div className="w-10 h-10 rounded-full bg-[#E6E2D6] overflow-hidden">
+                                <div 
+                                    onClick={() => navigate(`/profile/${req.user_id}`)}
+                                    className="w-10 h-10 rounded-full bg-[#E6E2D6] overflow-hidden cursor-pointer hover:opacity-80 transition-opacity"
+                                >
                                      {req.requester.avatar_url ? (
                                         <img src={req.requester.avatar_url} alt="avatar" className="w-full h-full object-cover" />
                                     ) : (
@@ -197,7 +200,12 @@ export default function Dashboard() {
                                     )}
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <p className="font-medium text-sm text-[#2C2C2C] truncate">{req.requester.full_name}</p>
+                                    <p 
+                                        onClick={() => navigate(`/profile/${req.user_id}`)}
+                                        className="font-medium text-sm text-[#2C2C2C] truncate cursor-pointer hover:underline"
+                                    >
+                                        {req.requester.full_name}
+                                    </p>
                                     <p className="text-xs text-[#888] truncate">for <span className="text-[#555]">{req.trip_location}</span></p>
                                 </div>
                                 <div className="flex gap-2">

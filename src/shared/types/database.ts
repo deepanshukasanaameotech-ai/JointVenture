@@ -11,6 +11,7 @@ export interface Profile {
     avatar_url: string | null;
     bio: string | null;
     personality_tags: string[] | null;
+    travel_photos?: string[] | null;
     created_at: string;
 }
 

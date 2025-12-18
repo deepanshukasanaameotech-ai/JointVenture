@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../../shared/utils/supabase";
 import { useNavigate } from "react-router-dom";
+import { ImageUpload } from "../../shared/components/ImageUpload";
 
 const PERSONALITY_TAGS = [
     "Singer", "Enthusiastic", "Adventurous", "Foodie", "Photographer", 
@@ -12,6 +13,7 @@ export default function ProfileSetup() {
     const [fullName, setFullName] = useState("");
     const [bio, setBio] = useState("");
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
+    const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -25,11 +27,14 @@ export default function ProfileSetup() {
                 } else if (user.user_metadata?.name) {
                     setFullName(user.user_metadata.name);
                 }
+                if (user.user_metadata?.avatar_url) {
+                    setAvatarUrl(user.user_metadata.avatar_url);
+                }
                 
                 // Also check if they have a partial profile in DB
                 const { data: profile } = await supabase
                     .from('profiles')
-                    .select('full_name, bio, personality_tags')
+                    .select('full_name, bio, personality_tags, avatar_url')
                     .eq('id', user.id)
                     .single();
                 
@@ -37,6 +42,7 @@ export default function ProfileSetup() {
                     if (profile.full_name) setFullName(profile.full_name);
                     if (profile.bio) setBio(profile.bio);
                     if (profile.personality_tags) setSelectedTags(profile.personality_tags);
+                    if (profile.avatar_url) setAvatarUrl(profile.avatar_url);
                 }
             }
         };
@@ -77,6 +83,7 @@ export default function ProfileSetup() {
                     full_name: fullName,
                     bio,
                     personality_tags: selectedTags,
+                    avatar_url: avatarUrl
                 })
                 .eq('id', user.id);
 
@@ -101,6 +108,17 @@ export default function ProfileSetup() {
                 <p className="text-[#888] mb-8 text-sm font-light">Build your profile to find the perfect travel buddies.</p>
 
                 <div className="space-y-6">
+                    <div className="flex justify-center mb-6">
+                        <div className="w-32 h-32">
+                            <ImageUpload 
+                                value={avatarUrl}
+                                onUpload={setAvatarUrl}
+                                className="w-full h-full rounded-full overflow-hidden"
+                                placeholder={<span className="text-sm">Photo</span>}
+                            />
+                        </div>
+                    </div>
+
                     <div>
                         <label className="block text-sm font-medium text-[#555] mb-2 ml-1">Full Name</label>
                         <input 

@@ -257,14 +257,17 @@ export default function TripDetails() {
                                 {trip.start_location} <span className="text-[#AAA] font-thin">to</span> {trip.end_location}
                             </h1>
                             <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-full bg-[#E6E2D6] overflow-hidden">
+                                <div 
+                                    onClick={() => navigate(`/profile/${trip.creator.id}`)}
+                                    className="w-8 h-8 rounded-full bg-[#E6E2D6] overflow-hidden cursor-pointer hover:opacity-80 transition-opacity"
+                                >
                                      {trip.creator.avatar_url ? (
                                         <img src={trip.creator.avatar_url} alt="avatar" className="w-full h-full object-cover" />
                                     ) : (
                                         <div className="w-full h-full flex items-center justify-center text-xs font-medium text-[#555]">{trip.creator.full_name?.[0] || '?'}</div>
                                     )}
                                 </div>
-                                <p className="text-[#555] text-sm md:text-base">Hosted by <span className="font-medium text-[#2C2C2C]">{trip.creator.full_name || 'Anonymous'}</span></p>
+                                <p className="text-[#555] text-sm md:text-base">Hosted by <span onClick={() => navigate(`/profile/${trip.creator.id}`)} className="font-medium text-[#2C2C2C] cursor-pointer hover:underline">{trip.creator.full_name || 'Anonymous'}</span></p>
                             </div>
                         </div>
 
@@ -299,7 +302,14 @@ export default function TripDetails() {
                                                 <div className={`max-w-[80%] rounded-2xl px-4 py-2 text-sm ${
                                                     isMe ? 'bg-[#2C2C2C] text-[#F2EFE9] rounded-br-none' : 'bg-[#F2EFE9] text-[#2C2C2C] rounded-bl-none'
                                                 }`}>
-                                                    {!isMe && <p className="text-[10px] opacity-70 mb-1 font-medium">{msg.user?.full_name}</p>}
+                                                    {!isMe && (
+                                                        <p 
+                                                            onClick={() => navigate(`/profile/${msg.user_id}`)}
+                                                            className="text-[10px] opacity-70 mb-1 font-medium cursor-pointer hover:underline"
+                                                        >
+                                                            {msg.user?.full_name}
+                                                        </p>
+                                                    )}
                                                     <p>{msg.content}</p>
                                                 </div>
                                             </div>
@@ -345,11 +355,19 @@ export default function TripDetails() {
                                 {/* Participants */}
                                 {participants.map(p => (
                                     <div key={p.user_id} className="flex items-center gap-3">
-                                        <div className="w-8 h-8 rounded-full bg-[#E6E2D6] overflow-hidden flex items-center justify-center text-xs">
+                                        <div 
+                                            onClick={() => navigate(`/profile/${p.user_id}`)}
+                                            className="w-8 h-8 rounded-full bg-[#E6E2D6] overflow-hidden flex items-center justify-center text-xs cursor-pointer hover:opacity-80 transition-opacity"
+                                        >
                                             {p.user.avatar_url ? <img src={p.user.avatar_url} className="w-full h-full object-cover" alt="user"/> : p.user.full_name?.[0]}
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <p className="text-sm font-medium truncate">{p.user.full_name}</p>
+                                            <p 
+                                                onClick={() => navigate(`/profile/${p.user_id}`)}
+                                                className="text-sm font-medium truncate cursor-pointer hover:underline"
+                                            >
+                                                {p.user.full_name}
+                                            </p>
                                         </div>
                                         {joinStatus === 'owner' && (
                                             <button 
@@ -419,7 +437,10 @@ export default function TripDetails() {
                          <div className="bg-white/60 p-6 rounded-3xl border border-white/50">
                             <h3 className="text-sm font-bold text-[#2C2C2C] uppercase tracking-wider mb-4">The Creator</h3>
                             <div className="flex items-start gap-4">
-                                <div className="w-12 h-12 rounded-full bg-[#E6E2D6] shrink-0 overflow-hidden">
+                                <div 
+                                    onClick={() => navigate(`/profile/${trip.creator.id}`)}
+                                    className="w-12 h-12 rounded-full bg-[#E6E2D6] shrink-0 overflow-hidden cursor-pointer hover:opacity-80 transition-opacity"
+                                >
                                     {trip.creator.avatar_url ? (
                                         <img src={trip.creator.avatar_url} alt="avatar" className="w-full h-full object-cover" />
                                     ) : (
@@ -427,7 +448,12 @@ export default function TripDetails() {
                                     )}
                                 </div>
                                 <div>
-                                    <p className="text-[#2C2C2C] font-medium">{trip.creator.full_name}</p>
+                                    <p 
+                                        onClick={() => navigate(`/profile/${trip.creator.id}`)}
+                                        className="text-[#2C2C2C] font-medium cursor-pointer hover:underline"
+                                    >
+                                        {trip.creator.full_name}
+                                    </p>
                                     <p className="text-sm text-[#666] mt-1 leading-snug">{trip.creator.bio || "No bio yet."}</p>
                                     
                                     <div className="flex flex-wrap gap-1 mt-3">

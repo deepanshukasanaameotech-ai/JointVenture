@@ -18,5 +18,6 @@ export const router = createBrowserRouter([
     {path: "/discover", element: <Discover />},
     {path: "/trips/:tripId", element: <TripDetails />},
     {path: "/profile", element: <Profile />},
+    {path: "/profile/:userId", element: <Profile />},
     {path: "/trending", element: <TrendingLocations />}
 ])

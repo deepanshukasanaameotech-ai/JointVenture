@@ -19,16 +19,24 @@ export function TripCard({ trip, isHost, onDelete }: { trip: TripWithCreator, is
     return (
         <div className="group bg-white/70 backdrop-blur-sm border border-white/60 p-6 rounded-[2rem] hover:shadow-[0_15px_30px_-10px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1 relative">
             <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-[#E6E2D6] overflow-hidden flex items-center justify-center text-sm font-medium text-[#555]">
-                    {trip.creator.avatar_url ? (
-                        <img src={trip.creator.avatar_url} alt="avatar" className="w-full h-full object-cover" />
-                    ) : (
-                        trip.creator.full_name?.[0] || '?'
-                    )}
-                </div>
-                <div>
-                    <h3 className="text-sm font-medium text-[#2C2C2C]">{trip.creator.full_name || 'Anonymous Traveler'}</h3>
-                    <p className="text-xs text-[#888]">Creator</p>
+                <div 
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/profile/${trip.creator.id}`);
+                    }}
+                    className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity"
+                >
+                    <div className="w-10 h-10 rounded-full bg-[#E6E2D6] overflow-hidden flex items-center justify-center text-sm font-medium text-[#555]">
+                        {trip.creator.avatar_url ? (
+                            <img src={trip.creator.avatar_url} alt="avatar" className="w-full h-full object-cover" />
+                        ) : (
+                            trip.creator.full_name?.[0] || '?'
+                        )}
+                    </div>
+                    <div>
+                        <h3 className="text-sm font-medium text-[#2C2C2C]">{trip.creator.full_name || 'Anonymous Traveler'}</h3>
+                        <p className="text-xs text-[#888]">Creator</p>
+                    </div>
                 </div>
                 <div className="ml-auto text-xs bg-[#F2EFE9] px-2 py-1 rounded-full text-[#555]">
                     {trip.travel_style}
