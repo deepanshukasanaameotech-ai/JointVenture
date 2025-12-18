@@ -249,11 +249,20 @@ export default function Dashboard() {
                             <span className="font-medium">Plan a Trip</span>
                             <span className="text-xl">✏️</span>
                         </button>
+                        
+                        <button 
+                            onClick={() => navigate('/discover')}
+                            className="flex items-center gap-3 bg-white text-[#2C2C2C] px-6 py-3 rounded-full shadow-xl hover:scale-105 transition-transform border border-[#eee]"
+                        >
+                            <span className="font-medium">Discover Trips</span>
+                            <span className="text-xl">🔭</span>
+                        </button>
+
                          <button 
                             onClick={() => navigate('/trending')}
-                            className="flex items-center gap-3 bg-white text-[#2C2C2C] px-6 py-3 rounded-full shadow-xl hover:scale-105 transition-transform"
+                            className="flex items-center gap-3 bg-white text-[#2C2C2C] px-6 py-3 rounded-full shadow-xl hover:scale-105 transition-transform border border-[#eee]"
                         >
-                            <span className="font-medium">Explore</span>
+                            <span className="font-medium">Trending Locations</span>
                             <span className="text-xl">🌍</span>
                         </button>
                     </div>
