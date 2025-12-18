@@ -7,6 +7,8 @@ import Discover from "../trips/pages/Discover";
 import TripDetails from "../trips/pages/TripDetails";
 import Profile from "../users/pages/Profile";
 import TrendingLocations from "../trips/pages/TrendingLocations";
+import SoloTravelGuide from "../guides/pages/SoloTravelGuide";
+import TravellerMotivation from "../guides/pages/TravellerMotivation";
 
 export const router = createBrowserRouter([
     {path: "/", element: <Auth />},
@@ -19,5 +21,7 @@ export const router = createBrowserRouter([
     {path: "/trips/:tripId", element: <TripDetails />},
     {path: "/profile", element: <Profile />},
     {path: "/profile/:userId", element: <Profile />},
-    {path: "/trending", element: <TrendingLocations />}
+    {path: "/trending", element: <TrendingLocations />},
+    {path: "/guide", element: <SoloTravelGuide />},
+    {path: "/motivation", element: <TravellerMotivation />}
 ])
