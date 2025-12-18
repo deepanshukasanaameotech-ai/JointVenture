@@ -322,6 +322,24 @@ export default function Dashboard() {
                              </div>
                          </div>
                     </div>
+
+                    {/* Card 5: Transparent Traveller */}
+                    <div 
+                        onClick={() => navigate('/transparency')}
+                        className="group relative h-64 rounded-[2rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-[#fff] text-[#2C2C2C] border-4 border-[#2C2C2C] md:col-span-2 lg:col-span-4"
+                    >
+                         {/* Grid Pattern Background */}
+                         <div className="absolute inset-0 opacity-10" style={{backgroundImage: 'radial-gradient(#2C2C2C 1px, transparent 1px)', backgroundSize: '20px 20px'}}></div>
+                         
+                         <div className="relative z-10 h-full p-8 flex items-center justify-between">
+                             <div>
+                                 <div className="text-xs font-mono bg-[#2C2C2C] text-white inline-block px-2 py-1 mb-2">REAL DATA</div>
+                                 <h3 className="text-3xl font-bold mb-2">The Transparent Traveller</h3>
+                                 <p className="text-[#888] max-w-md">No influencers. No hidden costs. Just real travel numbers, receipts, and the harsh truth about budgeting.</p>
+                             </div>
+                             <div className="text-6xl group-hover:scale-110 transition-transform duration-500">🧾</div>
+                         </div>
+                    </div>
                 </div>
             </div>
 
