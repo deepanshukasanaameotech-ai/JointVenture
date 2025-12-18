@@ -245,6 +245,86 @@ export default function Dashboard() {
                 )}
             </div>
 
+            {/* EXPLORE & INSPIRE SECTION */}
+            <div className="max-w-6xl mx-auto mb-32 animate-in slide-in-from-bottom-20 duration-1000 delay-300">
+                <div className="flex items-end justify-between mb-8">
+                    <div>
+                        <h2 className="text-2xl font-light text-[#2C2C2C] mb-2">Explore & Inspire</h2>
+                        <p className="text-[#888] font-light">Tools for your journey.</p>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {/* Card 1: Discover */}
+                    <div 
+                        onClick={() => navigate('/discover')}
+                        className="group relative h-64 rounded-[2rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-[#2C2C2C] text-[#F2EFE9]"
+                    >
+                         <div className="absolute inset-0 bg-gradient-to-br from-[#444] to-[#1a1a1a] opacity-100 group-hover:scale-110 transition-transform duration-700"></div>
+                         <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-[50px] -translate-y-1/2 translate-x-1/2"></div>
+                         <div className="absolute bottom-0 left-0 w-32 h-32 bg-black/20 rounded-full blur-[50px] translate-y-1/2 -translate-x-1/2"></div>
+                         
+                         <div className="relative z-10 h-full p-6 flex flex-col justify-between">
+                             <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-2xl group-hover:bg-white group-hover:text-[#2C2C2C] transition-colors">🔭</div>
+                             <div>
+                                 <h3 className="text-xl font-medium mb-1">Discover</h3>
+                                 <p className="text-sm opacity-60">Find open trips to join.</p>
+                             </div>
+                         </div>
+                    </div>
+
+                    {/* Card 2: Trending */}
+                    <div 
+                        onClick={() => navigate('/trending')}
+                        className="group relative h-64 rounded-[2rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-[#E6E2D6] text-[#2C2C2C]"
+                    >
+                         <div className="absolute inset-0 bg-gradient-to-br from-[#F2EFE9] to-[#D4C5B0] opacity-100 group-hover:scale-110 transition-transform duration-700"></div>
+                         
+                         <div className="relative z-10 h-full p-6 flex flex-col justify-between">
+                             <div className="w-12 h-12 rounded-full bg-white/40 backdrop-blur-md flex items-center justify-center text-2xl group-hover:bg-white transition-colors">🌍</div>
+                             <div>
+                                 <h3 className="text-xl font-medium mb-1">Trending</h3>
+                                 <p className="text-sm opacity-60">See where others go.</p>
+                             </div>
+                         </div>
+                    </div>
+
+                    {/* Card 3: Solo Guide */}
+                    <div 
+                        onClick={() => navigate('/guide')}
+                        className="group relative h-64 rounded-[2rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-[#2C2C2C] text-[#F2EFE9]"
+                    >
+                         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800&auto=format&fit=crop')] bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700 opacity-40 group-hover:opacity-60"></div>
+                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                         
+                         <div className="relative z-10 h-full p-6 flex flex-col justify-between">
+                             <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-2xl group-hover:bg-[#D4C5B0] group-hover:text-[#2C2C2C] transition-colors">🧭</div>
+                             <div>
+                                 <h3 className="text-xl font-medium mb-1">Solo Guide</h3>
+                                 <p className="text-sm opacity-80">Master the art of solo travel.</p>
+                             </div>
+                         </div>
+                    </div>
+
+                     {/* Card 4: Motivation */}
+                    <div 
+                        onClick={() => navigate('/motivation')}
+                        className="group relative h-64 rounded-[2rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-[#D4C5B0] text-[#2C2C2C]"
+                    >
+                         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=800&auto=format&fit=crop')] bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700 opacity-30 group-hover:opacity-50 mix-blend-overlay"></div>
+                         <div className="absolute inset-0 bg-gradient-to-br from-[#D4C5B0] to-[#bfa885] opacity-90 group-hover:opacity-80 transition-opacity"></div>
+                         
+                         <div className="relative z-10 h-full p-6 flex flex-col justify-between">
+                             <div className="w-12 h-12 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center text-xl group-hover:bg-white transition-colors">🔥</div>
+                             <div>
+                                 <h3 className="text-xl font-medium mb-1">Motivation</h3>
+                                 <p className="text-sm opacity-60">Daily words of wisdom.</p>
+                             </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+
             {/* FLOATING ACTION BUTTON (FAB) */}
             <div className="fixed bottom-8 right-8 z-50 flex flex-col items-end gap-4 pointer-events-none">
                 {/* Expandable Menu */}
