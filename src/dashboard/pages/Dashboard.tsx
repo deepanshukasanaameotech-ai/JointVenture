@@ -326,7 +326,7 @@ export default function Dashboard() {
                     {/* Card 5: Transparent Traveller */}
                     <div 
                         onClick={() => navigate('/transparency')}
-                        className="group relative h-64 rounded-[2rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-[#fff] text-[#2C2C2C] border-4 border-[#2C2C2C] md:col-span-2 lg:col-span-4"
+                        className="group relative h-64 rounded-[2rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-[#fff] text-[#2C2C2C] border-4 border-[#2C2C2C] md:col-span-2 lg:col-span-2"
                     >
                          {/* Grid Pattern Background */}
                          <div className="absolute inset-0 opacity-10" style={{backgroundImage: 'radial-gradient(#2C2C2C 1px, transparent 1px)', backgroundSize: '20px 20px'}}></div>
@@ -335,9 +335,26 @@ export default function Dashboard() {
                              <div>
                                  <div className="text-xs font-mono bg-[#2C2C2C] text-white inline-block px-2 py-1 mb-2">REAL DATA</div>
                                  <h3 className="text-3xl font-bold mb-2">The Transparent Traveller</h3>
-                                 <p className="text-[#888] max-w-md">No influencers. No hidden costs. Just real travel numbers, receipts, and the harsh truth about budgeting.</p>
+                                 <p className="text-[#888] max-w-md text-sm">Real numbers and hidden costs.</p>
                              </div>
                              <div className="text-6xl group-hover:scale-110 transition-transform duration-500">🧾</div>
+                         </div>
+                    </div>
+
+                    {/* Card 6: Travellers News */}
+                    <div 
+                        onClick={() => navigate('/news')}
+                        className="group relative h-64 rounded-[2rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-[#F2EFE9] text-[#2C2C2C] md:col-span-2 lg:col-span-2"
+                    >
+                         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=800&auto=format&fit=crop')] bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700 opacity-20 group-hover:opacity-40"></div>
+                         
+                         <div className="relative z-10 h-full p-8 flex items-center justify-between">
+                             <div>
+                                 <div className="text-xs font-bold text-[#E6E2D6] bg-[#2C2C2C] inline-block px-3 py-1 rounded-full mb-3 uppercase tracking-wider">Updates</div>
+                                 <h3 className="text-3xl font-light mb-2">Travellers News</h3>
+                                 <p className="text-[#555] max-w-sm">Latest visa policies, hacks, and stories.</p>
+                             </div>
+                             <div className="w-16 h-16 rounded-full bg-white backdrop-blur-md flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-500 shadow-sm">📰</div>
                          </div>
                     </div>
                 </div>
@@ -362,6 +379,14 @@ export default function Dashboard() {
                         >
                             <span className="font-medium">Discover Trips</span>
                             <span className="text-xl">🔭</span>
+                        </button>
+
+                         <button 
+                            onClick={() => navigate('/news')}
+                            className="flex items-center gap-3 bg-white text-[#2C2C2C] px-6 py-3 rounded-full shadow-xl hover:scale-105 transition-transform border border-[#eee]"
+                        >
+                            <span className="font-medium">Travel News</span>
+                            <span className="text-xl">📰</span>
                         </button>
 
                          <button 

@@ -10,6 +10,7 @@ import TrendingLocations from "../trips/pages/TrendingLocations";
 import SoloTravelGuide from "../guides/pages/SoloTravelGuide";
 import TravellerMotivation from "../guides/pages/TravellerMotivation";
 import TransparentTravel from "../guides/pages/TransparentTravel";
+import TravellersNews from "../news/pages/TravellersNews";
 
 export const router = createBrowserRouter([
     {path: "/", element: <Auth />},
@@ -25,5 +26,6 @@ export const router = createBrowserRouter([
     {path: "/trending", element: <TrendingLocations />},
     {path: "/guide", element: <SoloTravelGuide />},
     {path: "/motivation", element: <TravellerMotivation />},
-    {path: "/transparency", element: <TransparentTravel />}
+    {path: "/transparency", element: <TransparentTravel />},
+    {path: "/news", element: <TravellersNews />}
 ])
