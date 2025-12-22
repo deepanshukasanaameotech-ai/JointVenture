@@ -384,6 +384,78 @@ export default function TripDetails() {
                     </div>
                 )}
 
+            {/* Meeting Point Section */}
+                <div className="bg-white/60 backdrop-blur-md border border-white/50 rounded-[2rem] p-8 md:p-12 shadow-sm mb-8 relative overflow-hidden group">
+                    <div className="absolute top-0 left-0 w-2 h-full bg-[#D4C5B0]"></div>
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                        <div>
+                            <h2 className="text-xl font-medium text-[#2C2C2C] flex items-center gap-2">
+                                📍 Meeting Point
+                            </h2>
+                            {trip.meeting_point_name ? (
+                                <div className="mt-2">
+                                    <p className="text-2xl font-light text-[#2C2C2C]">{trip.meeting_point_name}</p>
+                                    <a 
+                                        href={trip.meeting_point_link || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(trip.meeting_point_name)}`} 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        className="text-sm text-[#888] hover:text-[#2C2C2C] underline decoration-dotted underline-offset-4 mt-1 inline-block"
+                                    >
+                                        View on Google Maps ↗
+                                    </a>
+                                </div>
+                            ) : (
+                                <p className="text-[#888] mt-2 italic text-sm">
+                                    {joinStatus === 'owner' ? "Set a specific location where everyone will meet." : "Host hasn't set a meeting point yet."}
+                                </p>
+                            )}
+                        </div>
+
+                        {joinStatus === 'owner' && (
+                            <div className="flex flex-col items-end gap-2">
+                                {trip.meeting_point_name ? (
+                                    <button 
+                                        onClick={async () => {
+                                            if(!confirm("Remove meeting point?")) return;
+                                            const { error } = await supabase.from('trips').update({ meeting_point_name: null, meeting_point_link: null }).eq('id', trip.id);
+                                            if (!error) setTrip({...trip, meeting_point_name: null, meeting_point_link: null});
+                                        }}
+                                        className="text-xs text-red-400 hover:text-red-600 font-medium px-3 py-2 bg-red-50 rounded-lg transition-colors"
+                                    >
+                                        Remove Location
+                                    </button>
+                                ) : (
+                                    <button 
+                                        onClick={async () => {
+                                            const name = prompt("Enter Location Name (e.g. 'Starbucks, Bandra'):");
+                                            if (!name) return;
+                                            // Optional: Ask for link, or auto-generate
+                                            const link = prompt("Paste Google Maps Link (Optional - leave empty to auto-generate):");
+                                            
+                                            const { error } = await supabase.from('trips').update({ 
+                                                meeting_point_name: name, 
+                                                meeting_point_link: link || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name)}`
+                                            }).eq('id', trip.id);
+
+                                            if (!error) {
+                                                setTrip({
+                                                    ...trip, 
+                                                    meeting_point_name: name, 
+                                                    meeting_point_link: link || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name)}`
+                                                });
+                                            }
+                                        }}
+                                        className="px-6 py-3 bg-[#2C2C2C] text-[#F2EFE9] text-sm font-medium rounded-full hover:scale-[1.02] transition-transform shadow-lg"
+                                    >
+                                        + Set Meeting Point
+                                    </button>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                {/* Main Grid */}
                 <div className="grid md:grid-cols-3 gap-8">
                     {/* Itinerary Column */}
                     <div className="md:col-span-2 space-y-8">

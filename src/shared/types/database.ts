@@ -29,6 +29,8 @@ export interface Trip {
     visibility: VisibilityType;
     max_people: number;
     safety_rules: string | null;
+    meeting_point_name?: string | null;
+    meeting_point_link?: string | null;
     created_at: string;
 }
 
